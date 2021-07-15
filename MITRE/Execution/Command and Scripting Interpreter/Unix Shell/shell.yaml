@@ -1,0 +1,19 @@
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: mitre-tactic-execution
+  namespace: testns #use your namespace here
+spec:
+  selector:
+    matchLabels:
+      container: ubuntu-1  #change the labels with your lables
+  process: 
+    matchPaths: 
+    - path: /bin/bash
+    - path: /bin/sh
+    - path: /etc/init.d      
+    - path: /dev/tty         
+  action:
+    Audit
+  severity: 4
+  tags : ["MITRE","Execution","Command and Scripting Interpreter","Unix Shell"]
